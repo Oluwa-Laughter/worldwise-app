@@ -12,22 +12,19 @@ import {
 import { useEffect, useState } from "react";
 import { useCities } from "../contexts/CitiesContext";
 import Button from "./Button";
+import { useURLPosition } from "../hooks/useURLPosition";
 
 function Map() {
-  const navigate = useNavigate();
-
   const [mapPosition, setMapPosition] = useState([51.505, -0.09]);
-
   const { cities } = useCities();
-  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [mapLat, mapLng] = useURLPosition();
+
   const {
     isLoading: isLoadingPosition,
     position: geoLocationPosition,
     getPosition,
   } = useGeolocation();
-
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
 
   useEffect(
     function () {
